@@ -4,6 +4,13 @@ function Node(p, v, l, r) {
     this.right  = r || null;
     this.parent = p || null;
     this.value  = v || null;
+    
+    this.copy = function(node){
+        this.left   = node.left;  
+        this.right  = node.right; 
+        this.parent = node.parent;
+        this.value  = node.value;
+    };
 }
 
 function BST(){
@@ -20,6 +27,12 @@ function BST(){
            insert(value, node.right);
         } else if(value < node.value){
            insert(value, node.left);
+        }
+    }
+    
+    function insertArr(valArr){
+        for(var i=0; i<valArr.length; i++){
+            insert(valArr[i]);
         }
     }
     
@@ -44,7 +57,6 @@ function BST(){
         return node;
     }
 
-    
     function max(node){
         node = node || root;
         while (node && node.right && node.right.value !== null){
@@ -66,16 +78,45 @@ function BST(){
     }
     
     function predecessor(node){
+        if(node && node.left && node.left.value !== null){
+            return max(node.left);
+        }
+        var parent = node.parent;
+        while(parent !== null && node === parent.left){
+            node = parent;
+            parent = parent.parent;
+        }
+        return parent;
+    }
+    
+    function transplant(u, v){
+        if(u.parent === null){
+            root.copy(v);
+        } else if(u === u.parent.left){
+            u.parent.left.copy(v);
+        } else {
+            u.parent.right.copy(v);
+        }
+        
+        if(v !== null){
+            v.parent.copy(u.parent);
+        }
+    }
+    
+    function remove(){
         
     }
     
     return {
         root: root,
         insert: insert,
+        insertArr: insertArr,
         search: search,
         min: min,
         max: max,
-        successor: successor
+        successor: successor,
+        predecessor: predecessor,
+        transplant: transplant
     };
 }
 

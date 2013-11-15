@@ -86,12 +86,7 @@ test("Empty Tree", function() {
 module("Testing Successor");
 test("Large Tree", function() {
     var bst = new BST();
-    bst.insert(10);
-    bst.insert(1);
-    bst.insert(100);
-    bst.insert(30);
-    bst.insert(12);
-    bst.insert(11);
+    bst.insertArr([10,1, 100, 30, 12,11]);
     var found = bst.search(10);
     var next = bst.successor(found);
     equal(next.value, 11);
@@ -105,14 +100,42 @@ test("Empty Tree", function() {
 
 test("Large Not Root", function() {
     var bst = new BST();
-    bst.insert(10);
-    bst.insert(1);
-    bst.insert(30);
-    bst.insert(100);
-    bst.insert(12);
-    bst.insert(11);
-    bst.insert(9);
+    bst.insertArr([10,1, 30, 100, 12,11,9]);
     var found = bst.search(9);
     var next = bst.successor(found);
     equal(next.value, 10);
 });
+
+module("Testing Predecessor");
+test("Large Tree", function() {
+    var bst = new BST();
+    bst.insertArr([10,1, 100, 30, 12,11]);
+    var found = bst.search(10);
+    var prev = bst.predecessor(found);
+    equal(prev.value, 1);
+});
+
+test("Empty Tree", function() {
+    var bst = new BST();
+    var prev = bst.predecessor(new Node(null, 10));
+    equal(prev, null);
+});
+
+test("Large Not Root", function() {
+    var bst = new BST();
+    bst.insertArr([10,1, 30, 100, 12,11,9]);
+    var found = bst.search(12);
+    var prev = bst.predecessor(found);
+    equal(prev.value, 11);
+});
+
+module("Testing Transplant");
+test("Small Tree", function() {
+    var bst = new BST();
+    bst.insertArr([10,1, 30]);
+    var found = bst.search(30);
+    bst.transplant(bst.root, found);
+    equal(bst.root.value, 30);
+    equal(bst.search(10), null);
+});
+
