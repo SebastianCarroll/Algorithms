@@ -89,6 +89,9 @@ function BST(){
         return parent;
     }
     
+    /**
+     * Function is a bit confusing. Refactor with better names.
+     */
     function transplant(u, v){
         if(u.parent === null){
             root.copy(v);
@@ -103,8 +106,42 @@ function BST(){
         }
     }
     
-    function remove(){
+    function remove(node){
+        if(node.left.value === null){
+            transplant(node, node.right);
+        } else if(node.right.value === null){
+            transplant(node, node.left);
+        } else {
+            var minNode = min(node.right);
+            if(minNode.parent !== node){
+                transplant(minNode, minNode.right);
+                minNode.right = node.right;
+                minNode.right.parent = minNode;
+            }
+            transplant(node, minNode);
+            minNode.left.copy(node.left);
+            minNode.left.parent.copy(minNode);
+        }
+    }
+    
+    function walk(order, node){
+        node = node || root;
+        var str = "";
         
+        if(node.value !== null){
+            if(order === BST.order.preorder){
+                str += node.value;
+            }
+            str += walk(order, node.left);
+            if(order === BST.order.inorder){
+                str += node.value;
+            }
+            str += walk(order, node.right);
+            if(order === BST.order.postorder){
+                str += node.value;
+            }
+        }
+        return str;
     }
     
     return {
@@ -116,8 +153,16 @@ function BST(){
         max: max,
         successor: successor,
         predecessor: predecessor,
-        transplant: transplant
+        transplant: transplant,
+        remove: remove,
+        walk: walk
     };
 }
+
+BST.order = {
+        preorder: "preorder",
+        inorder: "inorder",
+        postorder: "postorder"
+};
 
 

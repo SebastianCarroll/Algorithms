@@ -139,3 +139,22 @@ test("Small Tree", function() {
     equal(bst.search(10), null);
 });
 
+module("Testing Remove");
+// Tests too light here. Add more
+test("Small Tree", function() {
+    var bst = new BST();
+    bst.insertArr([10,1, 30]);
+    var found = bst.search(10);
+    bst.remove(found);
+    equal(bst.root.value, 30);
+    equal(bst.search(10), null);
+});
+
+module("Testing Tree Walk");
+test("Small Tree - inorder", function() {
+ var bst = new BST();
+ bst.insertArr([10,1,30]);
+ var out = bst.walk(BST.order.inorder);
+ equal(out, 11030);
+});
+
