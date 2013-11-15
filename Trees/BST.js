@@ -1,11 +1,9 @@
 
 function Node(p, v, l, r) {
-    var self = this;
-    //log('Setting v to: ' +v);
-    self.left = l || null;
-    self.right = r|| null;
-    self.parent = p|| null;
-    self.value = v|| null;
+    this.left   = l || null;
+    this.right  = r || null;
+    this.parent = p || null;
+    this.value  = v || null;
 }
 
 function BST(){
@@ -39,6 +37,7 @@ function BST(){
     }
     
     return {
+        root: root,
         insert: insert,
         search: search
     };
