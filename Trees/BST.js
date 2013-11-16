@@ -126,19 +126,19 @@ function BST(){
     
     function walk(order, node){
         node = node || root;
-        var str = "";
+        var str = '';
         
         if(node.value !== null){
             if(order === BST.order.preorder){
-                str += node.value;
+                str += '(' + node.value + ')';
             }
-            str += walk(order, node.left);
+            str += walk(order, node.left) ;
             if(order === BST.order.inorder){
-                str += node.value;
+                str += '(' + node.value + ')';
             }
             str += walk(order, node.right);
             if(order === BST.order.postorder){
-                str += node.value;
+                str += '(' + node.value + ')';
             }
         }
         return str;
@@ -159,10 +159,13 @@ function BST(){
     };
 }
 
-BST.order = {
+/**
+ * Enum like object to determine which order the walk is performed
+ */
+BST.order = Object.freeze({
         preorder: "preorder",
         inorder: "inorder",
         postorder: "postorder"
-};
+});
 
 

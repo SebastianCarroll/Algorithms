@@ -155,6 +155,42 @@ test("Small Tree - inorder", function() {
  var bst = new BST();
  bst.insertArr([10,1,30]);
  var out = bst.walk(BST.order.inorder);
- equal(out, 11030);
+ equal(out, '(1)(10)(30)');
 });
+
+test("Large Tree - inorder", function() {
+    var bst = new BST();
+    bst.insertArr([10,1,30,11,12,100,2]);
+    var out = bst.walk(BST.order.inorder);
+    equal(out, '(1)(2)(10)(11)(12)(30)(100)');
+});
+
+test("Empty Tree - inorder", function() {
+    var bst = new BST();
+    var out = bst.walk(BST.order.inorder);
+    equal(out, '');
+});
+
+test("Root only Tree - inorder", function() {
+    var bst = new BST();
+    bst.insertArr([10]);
+    var out = bst.walk(BST.order.inorder);
+    equal(out, '(10)');
+});
+
+test("Small Tree - preorder", function() {
+    var bst = new BST();
+    bst.insertArr([10,1,30]);
+    var out = bst.walk(BST.order.preorder);
+    equal(out, '(10)(1)(30)');
+});
+
+test("Small Tree - postorder", function() {
+    var bst = new BST();
+    bst.insertArr([10,1,30]);
+    var out = bst.walk(BST.order.postorder);
+    equal(out, '(1)(30)(10)');
+});
+
+
 
