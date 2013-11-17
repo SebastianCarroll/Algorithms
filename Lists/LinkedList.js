@@ -1,5 +1,5 @@
-function SLList(){
-    var head = new SLList.Node();
+function SLList(initHead){
+    var head = new SLList.Node(initHead);
     
     function insert(value){
         //clone head
@@ -11,6 +11,12 @@ function SLList(){
         
         //make this node the head of the list
         head.copy(node);
+    }
+    
+    function insertMany(valArr){
+        for(var i=0; i<valArr.length; i++){
+            insert(valArr[i]);
+        }
     }
 
     function toString(node){
@@ -24,9 +30,39 @@ function SLList(){
         return str;
     }
     
+    function reverseNodes(node){
+        var next = node.next;
+        if(next === null || next.value === null){
+            head.copy(node);
+            return head;
+        }
+        
+        node.next = new SLList.Node();
+        
+        var prevNode = reverseNodes(next);
+        
+        prevNode.next = node;
+        
+        return node;
+    }
+    
+    /**
+     * Not an ideal solution. Some hacky code to avoid overwriting the head
+     * parameter. 
+     */
+    function reverse(){
+        var newHead = new SLList.Node();
+        newHead.copy(head);
+        reverseNodes(newHead);
+        return this;
+    }
+    
     return {
+        head: head,
         insert: insert,
-        toString: toString
+        insertMany: insertMany,
+        toString: toString,
+        reverse: reverse
     };
 }
 
