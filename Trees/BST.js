@@ -1,28 +1,14 @@
 
-function Node(p, v, l, r) {
-    this.left   = l || null;
-    this.right  = r || null;
-    this.parent = p || null;
-    this.value  = v || null;
-    
-    this.copy = function(node){
-        this.left   = node.left;  
-        this.right  = node.right; 
-        this.parent = node.parent;
-        this.value  = node.value;
-    };
-}
-
 function BST(){
     
-    var root = new Node();
+    var root = new BST.Node();
     
     function insert(value, node){
         node = node || root;
         if(node.value === null){
             node.value = value;
-            node.left  = new Node(node);
-            node.right = new Node(node);
+            node.left  = new BST.Node(node);
+            node.right = new BST.Node(node);
         } else if(value > node.value){
            insert(value, node.right);
         } else if(value < node.value){
@@ -158,6 +144,20 @@ function BST(){
         walk: walk
     };
 }
+
+BST.Node = function(p, v, l, r) {
+    this.left   = l || null;
+    this.right  = r || null;
+    this.parent = p || null;
+    this.value  = v || null;
+    
+    this.copy = function(node){
+        this.left   = node.left;  
+        this.right  = node.right; 
+        this.parent = node.parent;
+        this.value  = node.value;
+    };
+};
 
 /**
  * Enum like object to determine which order the walk is performed

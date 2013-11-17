@@ -94,7 +94,7 @@ test("Large Tree", function() {
 
 test("Empty Tree", function() {
     var bst = new BST();
-    var next = bst.successor(new Node(null, 10));
+    var next = bst.successor(new BST.Node(null, 10));
     equal(next, null);
 });
 
@@ -117,7 +117,7 @@ test("Large Tree", function() {
 
 test("Empty Tree", function() {
     var bst = new BST();
-    var prev = bst.predecessor(new Node(null, 10));
+    var prev = bst.predecessor(new BST.Node(null, 10));
     equal(prev, null);
 });
 
