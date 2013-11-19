@@ -33,6 +33,8 @@ function SLList(initHead){
     function reverseNodes(node){
         var next = node.next;
         if(next === null || next.value === null){
+            // Youve reached the end of the list so
+            // make this the head.
             head.copy(node);
             return head;
         }
@@ -55,6 +57,10 @@ function SLList(initHead){
         newHead.copy(head);
         reverseNodes(newHead);
         return this;
+    }
+    
+    function containsCycle(){
+        throw "Not implemented yet";
     }
     
     return {
